@@ -1,34 +1,14 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-
-interface ArmorPiece {
-  id: number;
-  name: string;
-  type: string;
-  rarity: number;
-  defense: {
-    base: number;
-  };
-}
+import CardArmor from './components/CardArmor';
 
 function App() {
-  const [armorPieces, setArmorPieces] = useState<ArmorPiece[]>([]);
-
-  useEffect(() => {
-    fetch('https://mhw-db.com/armor')
-      .then(response => response.json())
-      .then(data => setArmorPieces(data));
-  }, []);
+  const armorTypes = ['head', 'chest', 'arms', 'waist', 'legs'];
 
   return (
     <div className="app">
-      {armorPieces.map(piece => (
-        <div key={piece.id} className="card">
-          <h2>{piece.name}</h2>
-          <p>Type: {piece.type}</p>
-          <p>Rarity: {piece.rarity}</p>
-          <p>Defense: {piece.defense.base}</p>
-        </div>
+      {armorTypes.map(type => (
+        <CardArmor key={type} type={type} />
       ))}
     </div>
   );
