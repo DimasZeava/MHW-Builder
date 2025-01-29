@@ -71,19 +71,38 @@ const slotArmorIcons: { [key: number]: string } = {
     4: "./assets/decorations/4-0.png",
 };
 
+const rarityColors: { [key: number]: string } = {
+  1: "#9b9b9b",
+  2: "#ffffff",
+  3: "#8cc94a",
+  4: "#1eff00",
+  5: "#00cadd",
+  6: "#353cee",
+  7: "#a335ee",
+  8: "#ee8c35",
+  9: "#ee3535",
+  10: "#094df7",
+  11: "#f5d404",
+  12: "#DAF0F2",
+};
+
+const getRarityColor = (rarity: number): string => {
+  return rarityColors[rarity] || "#000000";
+};
+
 const ModalArmorCard = () => {
     const [armor, setArmor] = useState<ArmorPiece | null>(null);
     const [armorSet, setArmorSet] = useState<ArmorSet | null>(null);
 
     useEffect(() => {
         const fetchArmor = async () => {
-          const response = await fetch('https://mhw-db.com/armor/1');
+          const response = await fetch('https://mhw-db.com/armor/1664');
           const data: ArmorPiece = await response.json();
           setArmor(data);
         };
     
         const fetchArmorSet = async () => {
-          const response = await fetch('https://mhw-db.com/armor/sets/1');
+          const response = await fetch('https://mhw-db.com/armor/sets/368');
           const data: ArmorSet = await response.json();
           setArmorSet(data);
         };
@@ -96,17 +115,21 @@ const ModalArmorCard = () => {
         return <div>Loading...</div>;
       }
 
+      const imageMale = armor.assets?.imageMale || armorTypeIcons[armor.type];
+      
   return (
     <div className="modal-card flex w-4xl p-4 bg-zinc-800 rounded-lg shadow-lg m-4">
       <div className="images">
-        <img src={armor.assets.imageMale} alt={armor.name} />
+        <img src={imageMale} alt={armor.name} />
       </div>
       <div className="info">
         <div className="label">
-          <div className="label-armor-type">{armor.type}</div>
+          <div className="label-armor-type">
+            <img src={armorTypeIcons[armor.type]} alt="" />
+          </div>
           <div className="label-armor-name">{armor.name}</div>
         </div>
-        <div className="rarity-armor">Rarity: {armor.rarity}</div>
+        <div className="rarity-armor" style={{ color: getRarityColor(armor.rarity) }}>Rarity: {armor.rarity}</div>
         <div className="stat-section">
             <div className="defense">
                 <div className="img"></div>
