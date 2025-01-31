@@ -30,7 +30,6 @@ interface ArmorPiece {
   armorSet: number;
   assets: {
     imageMale: string;
-    imageFemale: string;
   };
 }
 
