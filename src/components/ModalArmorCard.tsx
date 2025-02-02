@@ -35,9 +35,12 @@ interface ArmorPiece {
 
 interface ArmorSet {
   id: number;
-  name: string;
   rank: string;
-  pieces: ArmorPiece[];
+  name: string;
+
+  pieces: ArmorPiece[
+
+  ];
   bonus: {
     id: number;
     name: string;
@@ -161,6 +164,7 @@ const ModalArmorCard = () => {
             ))}
             </div>
         </div>
+
         <div className="stat-section">
           <div className="defense flex items-center gap-0.5">
             <img src="./assets/defense-icon.png" alt="Defense icon" className="w-10 p-2 bg-zinc-700"/>

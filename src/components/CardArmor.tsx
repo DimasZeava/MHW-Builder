@@ -26,7 +26,7 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
 
   return (
     <div>
-      <div className="card flex items-center gap-5 w-2xl p-4 bg-zinc-900 rounded-lg shadow-lg m-4" onClick={openModal}>
+      <div className="card flex items-center gap-5 w-2xl p-4 bg-zinc-900 rounded-lg shadow-lg m-4 cursor-pointer hover:bg-zinc-800 transition" onClick={openModal}>
         <div className="icon-armor p-2 bg-gray-800 rounded-lg shadow-lg">
           <img src={armorTypeIcons[type]} alt={type} className="icon" />
         </div>
@@ -40,7 +40,7 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
         <div className="modal-overlay fixed inset-0 bg-black/80 flex justify-center items-center">
         <div className="modal-content w-3xl p-2 bg-zinc-900  rounded-2xl shadow-lg text-white">
           <h1 className="text-2xl font-bold">Select {type.charAt(0).toUpperCase() + type.slice(1)}</h1>
-          <button onClick={closeModal} className="close-modal text-lg">X</button>
+          <button onClick={closeModal} className="close-modal text-lg cursor-pointer hover:bg-zinc-800 transition">[X]</button>
           <ModalArmor />
         </div>
       </div>
