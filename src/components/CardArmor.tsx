@@ -30,9 +30,7 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
         <div className="icon-armor p-2 bg-gray-800 rounded-lg shadow-lg">
           <img src={armorTypeIcons[type]} alt={type} className="icon" />
         </div>
-        <div className="label-armor text-center text-xl font-bold text-zinc-100">
-
-        </div>
+        <div className="label-armor text-center text-xl font-bold text-zinc-100"></div>
         <div className="slot-card"></div>
       </div>
 

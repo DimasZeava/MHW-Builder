@@ -11,7 +11,6 @@ function App() {
       {armorTypes.map(type => (
         <CardArmor key={type} type={type} />
       ))}
-      <ModalArmor />
     </div>
   );
 }
