@@ -1,58 +1,7 @@
-import { useEffect, useState } from "react";
+import { ArmorPiece, ArmorSet } from "../interfaces/interfaces";
 
-interface ArmorPiece {
-  id: number;
-  name: string;
-  type: string;
-  rarity: number;
-  defense: {
-    base: number;
-    max: number;
-    augmented: number;
-  };
-  resistances: {
-    fire: number;
-    water: number;
-    thunder: number;
-    ice: number;
-    dragon: number;
-  };
-  slots: { rank: number }[];
-  skills: {
-    id: number;
-    slug: string;
-    level: number;
-    description: string;
-    modifiers: [];
-    skill: number;
-    skillName: string;
-  }[];
-  armorSet: number;
-  assets: {
-    imageMale: string;
-  };
-}
-
-interface ArmorSet {
-  id: number;
-  name: string;
-  rank: string;
-  pieces: ArmorPiece[];
-  bonus: {
-    id: number;
-    name: string;
-    ranks: {
-      pieces: number;
-      skill: {
-        id: number;
-        slug: string;
-        level: number;
-        description: string;
-        skill: number;
-        skillName: string;
-      };
-    }[];
-  };
+interface ModalArmorCardProps {
+  armorPiece: ArmorPiece;
 }
 
 const armorTypeIcons: { [key: string]: string } = {
@@ -97,55 +46,32 @@ const getRarityColor = (rarity: number): string => {
   return rarityColors[rarity] || "#000000";
 };
 
-const ModalArmorCard = () => {
-  const [armor, setArmor] = useState<ArmorPiece | null>(null);
-  const [armorSet, setArmorSet] = useState<ArmorSet | null>(null);
+const ModalArmorCard: React.FC<ModalArmorCardProps> = ({ armorPiece }) => {
 
-  useEffect(() => {
-    const fetchArmor = async () => {
-      const response = await fetch("https://mhw-db.com/armor/1120");
-      const data: ArmorPiece = await response.json();
-      setArmor(data);
-    };
-
-    const fetchArmorSet = async () => {
-      const response = await fetch("https://mhw-db.com/armor/sets/368");
-      const data: ArmorSet = await response.json();
-      setArmorSet(data);
-    };
-
-    fetchArmor();
-    fetchArmorSet();
-  }, []);
-
-  if (!armor || !armorSet) {
-    return <div>Loading...</div>;
-  }
-
-  const slots = [...armor.slots];
+  const slots = [...armorPiece.slots];
   while (slots.length < 3) {
     slots.push({ rank: 0 });
   }
 
-  const imageMale = armor.assets?.imageMale || armorTypeIcons[armor.type];
+  const imageMale = armorPiece.assets?.imageMale || armorTypeIcons[armorPiece.type];
 
   return (
     <div className="modal-card flex w-2xl h-auto p-4 bg-zinc-800 rounded-lg shadow-lg m-4 text-gray-100">
       <div className="images w-sm bg-zinc-700 rounded-lg mr-4 flex justify-center items-center">
-        <img src={imageMale} alt={armor.name} />
+        <img src={imageMale} alt={armorPiece.name} />
       </div>
       <div className="info w-sm">
         <div className="label flex items-center mb-3 max-w-max">
           <div className="label-armor-type">
-            <img src={armorTypeIcons[armor.type]} alt="armor-type-icon" className="w-12" />
+            <img src={armorTypeIcons[armorPiece.type]} alt="armor-type-icon" className="w-12" />
           </div>
-          <h1 className="label-armor-name font-bold px-2 text-xl">{armor.name}</h1>
+          <h1 className="label-armor-name font-bold px-2 text-xl">{armorPiece.name}</h1>
         </div>
         <div
           className="rarity-armor p-2 rounded-lg border-2"
-          style={{ color: getRarityColor(armor.rarity) }}
+          style={{ color: getRarityColor(armorPiece.rarity) }}
         >
-          Rarity {armor.rarity}
+          Rarity {armorPiece.rarity}
         </div>
         <div className="slots flex justify-between items-center my-3">
             <h3 className="text-zinc-200">Slots </h3>
@@ -164,10 +90,10 @@ const ModalArmorCard = () => {
         <div className="stat-section">
           <div className="defense flex items-center gap-0.5">
             <img src="./assets/defense-icon.png" alt="Defense icon" className="w-10 p-2 bg-zinc-700"/>
-            <div className="value w-full p-2 bg-zinc-600">{armor.defense.base}</div>
+            <div className="value w-full p-2 bg-zinc-600">{armorPiece.defense.base}</div>
           </div>
           <div className="resistances">
-            {Object.entries(armor.resistances).map(([resistance, value]) => (
+            {Object.entries(armorPiece.resistances).map(([resistance, value]) => (
               <div key={resistance} className="resistance flex items-center gap-0.5">
                 <img src={resistanceIcons[resistance]} alt={`${resistance} icon`} className="w-10 p-2 bg-zinc-700"/>
                 <div className="value w-full p-2 bg-zinc-600">{value}</div>
