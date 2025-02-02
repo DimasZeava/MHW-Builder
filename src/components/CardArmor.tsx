@@ -15,7 +15,7 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
   const armorTypeIcons: { [key: string]: string } = {
     head: "./assets/armor/head-icon.png",
     chest: "./assets/armor/chest-icon.png",
-    arms: "./assets/armor/arms-icon.png",
+    gloves: "./assets/armor/arms-icon.png",
     waist: "./assets/armor/waist-icon.png",
     legs: "./assets/armor/legs-icon.png",
   };
@@ -51,7 +51,7 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
           {selectedArmor && (
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Mencegah modal terbuka saat reset ditekan
+                e.stopPropagation();
                 resetArmor();
               }}
               className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition"

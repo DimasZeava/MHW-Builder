@@ -7,7 +7,7 @@ interface ModalArmorCardProps {
 const armorTypeIcons: { [key: string]: string } = {
   head: "./assets/armor/head-icon.png",
   chest: "./assets/armor/chest-icon.png",
-  arms: "./assets/armor/arms-icon.png",
+  gloves: "./assets/armor/arms-icon.png",
   waist: "./assets/armor/waist-icon.png",
   legs: "./assets/armor/legs-icon.png",
 };
@@ -127,17 +127,6 @@ const ModalArmorCard: React.FC<ModalArmorCardProps> = ({ armorPiece }) => {
               <div>{value}</div>
             </div>
           ))}
-        </div>
-
-        <div className="skills-section">
-          <div className="skill">
-            <div className="name"></div>
-            <div className="level"></div>
-          </div>
-        </div>
-        <div className="armor-set">
-          <div className="img"></div>
-          <div className="name"></div>
         </div>
       </div>
     </div>

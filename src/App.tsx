@@ -4,7 +4,7 @@ import CardArmor from './components/CardArmor';
 import CardWeapon from './components/CardWeapon';
 
 function App() {
-  const armorTypes = ['head', 'chest', 'arms', 'waist', 'legs'];
+  const armorTypes = ['head', 'chest', 'gloves', 'waist', 'legs'];
 
   return (
     <div className="app">
