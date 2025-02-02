@@ -27,7 +27,7 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
   return (
     <div>
       <div
-        className="card flex items-center gap-5 w-2xl p-4 bg-zinc-900 rounded-lg shadow-lg m-4"
+        className="card flex items-center gap-5 w-2xl p-4 bg-zinc-900 rounded-lg shadow-lg m-4 cursor-pointer"
         onClick={openModal}
       >
         <div className="icon-armor p-2 bg-gray-800 rounded-lg shadow-lg">
