@@ -9,8 +9,15 @@ interface ModalArmorProps {
   setSelectedArmor: (armor: { name: string; slots: number[] }) => void;
 }
 
-const ModalArmor: React.FC<ModalArmorProps> = ({ type, onClose, setSelectedArmor }) => {
+const ModalArmor: React.FC<ModalArmorProps> = ({
+  type,
+  onClose,
+  setSelectedArmor,
+}) => {
   const [armorPieces, setArmorPieces] = useState<ArmorPiece[]>([]);
+  const [filteredArmorPieces, setFilteredArmorPieces] = useState<ArmorPiece[]>(
+    []
+  );
 
   useEffect(() => {
     const fetchArmor = async () => {
@@ -19,14 +26,26 @@ const ModalArmor: React.FC<ModalArmorProps> = ({ type, onClose, setSelectedArmor
       );
       const data: ArmorPiece[] = await response.json();
       setArmorPieces(data);
+      setFilteredArmorPieces(data);
     };
 
     fetchArmor();
   }, [type]);
 
   const handleSelectArmor = (armor: ArmorPiece) => {
-    setSelectedArmor({ name: armor.name, slots: armor.slots.map(slot => slot.rank) });
+    setSelectedArmor({
+      name: armor.name,
+      slots: armor.slots.map((slot) => slot.rank),
+    });
     onClose();
+  };
+
+  const handleSearch = (query: string) => {
+    const filtered = armorPieces.filter((armorPiece) =>
+      armorPiece.name.toLowerCase().includes(query.toLowerCase()) ||
+    armorPiece.skills.some(skill => skill.skillName.toLowerCase().includes(query.toLowerCase()))
+    );
+    setFilteredArmorPieces(filtered);
   };
 
   return (
@@ -36,14 +55,21 @@ const ModalArmor: React.FC<ModalArmorProps> = ({ type, onClose, setSelectedArmor
           <h1 className="text-2xl font-bold">
             Select {type.charAt(0).toUpperCase() + type.slice(1)}
           </h1>
-          <button onClick={onClose} className="close-modal text-lg cursor-pointer hover:bg-zinc-800 transition">
+          <button
+            onClick={onClose}
+            className="close-modal text-lg cursor-pointer hover:bg-zinc-800 transition"
+          >
             X
           </button>
         </div>
-        <SearchBar />
-        <div className="modal-card flex-col justify-center items-center text-gray-100 max-h-[76vh] overflow-y-auto">
-          {armorPieces.map((armorPiece) => (
-            <div key={armorPiece.id} onClick={() => handleSelectArmor(armorPiece)}>
+        <SearchBar onSearch={handleSearch} />
+        <div className="modal-card w-max max-h-[76vh] flex-col justify-center items-center text-gray-100 overflow-y-auto">
+          {filteredArmorPieces.map((armorPiece) => (
+            <div
+              className="cursor-pointer"
+              key={armorPiece.id}
+              onClick={() => handleSelectArmor(armorPiece)}
+            >
               <ModalArmorCard armorPiece={armorPiece} />
             </div>
           ))}
