@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalArmor from "./ModalArmor";
+import SlotCard from "./SlotCard";
 
 interface CardArmorProps {
   type: string;
@@ -25,9 +26,9 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
   const resetArmor = () => setSelectedArmor(null);
 
   return (
-    <div>
+    <div className="card flex gap-2 m-4 h-36">
       <div
-        className="card flex items-center gap-5 w-2xl p-4 bg-zinc-900 rounded-lg shadow-lg m-4 cursor-pointer hover:bg-zinc-800 transition"
+        className="card-component flex items-center gap-5 w-2xl p-4 bg-zinc-900 rounded-lg shadow-lg cursor-pointer hover:bg-zinc-800 transition"
         onClick={openModal}
       >
         <div className="icon-armor p-2 bg-gray-800 rounded-lg shadow-lg">
@@ -36,17 +37,6 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
         <div className="label-armor text-center text-xl font-bold text-zinc-100">
           {selectedArmor ? selectedArmor.name : ""}
         </div>
-        <div className="slot-card flex gap-2">
-          {selectedArmor &&
-            selectedArmor.slots.map((slot, index) => (
-              <img
-                key={index}
-                src={`./assets/decorations/${slot}-0.png`}
-                alt={`Slot ${slot}`}
-              />
-            ))}
-        </div>
-
         <div>
           {selectedArmor && (
             <button
@@ -60,6 +50,12 @@ const CardArmor: React.FC<CardArmorProps> = ({ type }) => {
             </button>
           )}
         </div>
+      </div>
+      <div className="slot-card flex-row">
+        {selectedArmor &&
+          selectedArmor.slots.map((slot, index) => (
+            <SlotCard key={index} slot={slot} />
+          ))}
       </div>
 
       {showModal && (

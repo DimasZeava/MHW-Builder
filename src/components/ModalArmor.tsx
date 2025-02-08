@@ -41,7 +41,7 @@ const ModalArmor: React.FC<ModalArmorProps> = ({ type, onClose, setSelectedArmor
           </button>
         </div>
         <SearchBar />
-        <div className="modal-card flex-col justify-center items-center text-gray-100 max-h-[75vh] overflow-y-auto">
+        <div className="modal-card flex-col justify-center items-center text-gray-100 max-h-[76vh] overflow-y-auto">
           {armorPieces.map((armorPiece) => (
             <div key={armorPiece.id} onClick={() => handleSelectArmor(armorPiece)}>
               <ModalArmorCard armorPiece={armorPiece} />
