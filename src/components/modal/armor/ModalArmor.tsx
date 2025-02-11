@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { ArmorPiece } from "../interfaces/interfaces";
+import { ArmorPiece } from "../../../interfaces/interfaces";
 import ModalArmorCard from "./ModalArmorCard";
-import SearchBar from "./SearchBar";
+import SearchBar from "../../SearchBar";
+import Modal from "../../Modal";
 
 interface ModalArmorProps {
   type: string;
@@ -41,29 +42,19 @@ const ModalArmor: React.FC<ModalArmorProps> = ({
   };
 
   const handleSearch = (query: string) => {
-    const filtered = armorPieces.filter((armorPiece) =>
-      armorPiece.name.toLowerCase().includes(query.toLowerCase()) ||
-    armorPiece.skills.some(skill => skill.skillName.toLowerCase().includes(query.toLowerCase()))
+    const filtered = armorPieces.filter(
+      (armorPiece) =>
+        armorPiece.name.toLowerCase().includes(query.toLowerCase()) ||
+        armorPiece.skills.some((skill) =>
+          skill.skillName.toLowerCase().includes(query.toLowerCase())
+        )
     );
     setFilteredArmorPieces(filtered);
   };
 
   return (
-    <div className="modal-overlay fixed inset-0 bg-black/80 flex justify-center items-center">
-      <div className="modal-content w-auto p-2 bg-zinc-900 rounded-2xl shadow-lg text-white max-h-screen">
-        <div className="modal-header flex justify-between items-center p-2">
-          <h1 className="text-2xl font-bold">
-            Select {type.charAt(0).toUpperCase() + type.slice(1)}
-          </h1>
-          <button
-            onClick={onClose}
-            className="close-modal text-lg cursor-pointer hover:bg-zinc-800 transition"
-          >
-            X
-          </button>
-        </div>
+    <Modal title={`Select ${type.charAt(0).toUpperCase() + type.slice(1)}`} onClose={onClose}>
         <SearchBar onSearch={handleSearch} />
-        <div className="modal-card w-max max-h-[76vh] flex-col justify-center items-center text-gray-100 overflow-y-auto">
           {filteredArmorPieces.map((armorPiece) => (
             <div
               className="cursor-pointer"
@@ -73,9 +64,7 @@ const ModalArmor: React.FC<ModalArmorProps> = ({
               <ModalArmorCard armorPiece={armorPiece} />
             </div>
           ))}
-        </div>
-      </div>
-    </div>
+    </Modal>
   );
 };
 

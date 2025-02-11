@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ModalArmor from "./ModalArmor";
+import ModalArmor from "./modal/armor/ModalArmor";
 import SlotCard from "./SlotCard";
 
 interface CardArmorProps {

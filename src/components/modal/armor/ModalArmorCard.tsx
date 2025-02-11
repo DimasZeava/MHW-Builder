@@ -1,4 +1,4 @@
-import { ArmorPiece, ArmorSet } from "../interfaces/interfaces";
+import { ArmorPiece } from "../../../interfaces/interfaces";
 
 interface ModalArmorCardProps {
   armorPiece: ArmorPiece;
@@ -56,7 +56,6 @@ const ModalArmorCard: React.FC<ModalArmorCardProps> = ({ armorPiece }) => {
     armorPiece.assets?.imageMale || armorTypeIcons[armorPiece.type];
 
   return (
-
     <div className="modal-card flex w-2xl h-auto p-4 bg-zinc-800 rounded-lg shadow-lg m-4 text-gray-100 ">
       <div className="images w-sm bg-zinc-700 rounded-lg mr-4 flex justify-center items-center ">
         <img src={imageMale} alt={armorPiece.name} />
@@ -74,14 +73,13 @@ const ModalArmorCard: React.FC<ModalArmorCardProps> = ({ armorPiece }) => {
           <h1 className="label-armor-name font-bold px-2 text-xl">
             {armorPiece.name}
           </h1>
-      
         </div>
         <div
-            className="rarity-armor p-1 rounded-lg border-2"
-            style={{ color: getRarityColor(armorPiece.rarity) }}
-          >
-            Rarity {armorPiece.rarity}
-          </div>
+          className="rarity-armor p-1 rounded-lg border-2"
+          style={{ color: getRarityColor(armorPiece.rarity) }}
+        >
+          Rarity {armorPiece.rarity}
+        </div>
         <div className="slots flex justify-between items-center my-3">
           <h3 className="text-zinc-200">Slots </h3>
           <div className="slot-group grid grid-cols-3 gap-2.5">
@@ -110,9 +108,7 @@ const ModalArmorCard: React.FC<ModalArmorCardProps> = ({ armorPiece }) => {
               alt="Defense icon"
               className="w-10 p-2 bg-zinc-800 rounded"
             />
-            <div>
-              {armorPiece.defense.base}
-            </div>
+            <div>{armorPiece.defense.base}</div>
           </div>
           {Object.entries(armorPiece.resistances).map(([resistance, value]) => (
             <div
@@ -130,7 +126,6 @@ const ModalArmorCard: React.FC<ModalArmorCardProps> = ({ armorPiece }) => {
         </div>
       </div>
     </div>
-
   );
 };
 
