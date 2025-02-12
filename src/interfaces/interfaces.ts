@@ -52,3 +52,10 @@ export interface ArmorSet {
     }[];
   };
 }
+
+export interface Decoration {
+  id: number;
+  rarity: number;
+  slot: number;
+  name: string;
+}
